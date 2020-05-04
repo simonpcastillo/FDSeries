@@ -1,18 +1,15 @@
 #' Internal use
-#' @description
-#'       For internal use. Computes functional diversity metrics for a single community (one time bin). See refernece below.
+#' @description For internal use. Computes functional diversity metrics for a single community (one time bin). Edited from original source \url{http://villeger.sebastien.free.fr/Rscripts.html} See reference below.
 #' @param data.frame
-#' @return data.frame
-#' @references
-#'        Villéger, S., Mason, N. W., & Mouillot, D. (2008). New multidimensional functional diversity indices for a multifaceted framework in functional ecology. Ecology, 89(8), 2290-2301.
-
+#' @return dataframe
+#' @references Villéger, S., Mason, N. W., & Mouillot, D. (2008). New multidimensional functional diversity indices for a multifaceted framework in functional ecology. Ecology, 89(8), 2290-2301.
+#' @references Bellwood, D. R., Wainwright, P. C., Fulton, C. J., & Hoey, A. S. (2006). Functional versatility supports coral reef biodiversity. Proceedings of the Royal Society B: Biological Sciences, 273(1582), 101-107.
+#' @seealso \code{\link{FD_metrics}}, \code{\link[FD:FD-package]{FD}}
+#' @source This is an edited version from Villeger: \url{http://villeger.sebastien.free.fr/Rscripts.html}
 ##########################################################################################################################
 #  function to compute the 4 functional diversity indices                                                                #
 #  this is an EDITED version of de original used in Villeger et al. 2009, Ecological Applications (in press)                                                      #
-#                                                                                                                        #
-# - Functional richness (FRic), Functional evenness (FEve), Functional divergence (FDiv)                                 #
-#    Villeger et al. 2008 (Ecology, 89: 2290-2301)                                                                       #
-#                                                                                                                        #
+#
 # - Functional specialization (FSpe) following Bellwood et al. 2006 (Proc. R. Soc. B., 273: 101-107)                     #
 #                                                                                                                        #
 #                                                                                                                        #
@@ -37,7 +34,7 @@
 #               - FSpe: functional specialization index                                                                  #
 ##########################################################################################################################
 
-FDind<-function(traits,abundances)  {
+ind_FD<-function(traits,abundances)  {
 
 #loading required libraries
 pacman::p_load(geometry, ape)
@@ -191,4 +188,4 @@ for (i in 1:C){
 res<-data.frame(Nbsp=Nbsp, FRic=FRic,FEve=FEve, FDiv=FDiv, FSpe=FSpe )
 return(res)
 
-}#end
+}#ElFin

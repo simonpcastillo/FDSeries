@@ -1,21 +1,26 @@
 #' Estimate functional metrics
-#' @description This function is based on Villeger et al. (view FD package). This function computes functional diversity metrics
-#' @param
-#'       df: a data.frame obtained after running the FD_df function.
-#' @return
-#'       FDsummary: data.frame. COntains the estimated parameters for functional diversity for each time bin. "FEve" functional evenness, "FDiv" functional divergence, "FSpe" functional specialisaiton, "FRic" functional richness.
-#'       FuncSpace: list. Stores the Functional space for each time bin.
-#'       ch1_list: list. Stores convex hull coordinates.
-#'       ch2_list: list. Stores convex hull coordinates.
-#'       pc1_list: list. Stores principal component coordinates.
-#'       pc2_list: list. Stores principal component coordinates.
-#'       pc3_list: list. Stores principal component coordinates.
+#' @description This function is based on Villeger et al. (2008). This function computes functional diversity metrics.
+#' @author Simon P. Castillo \email{spcastil@@uc.cl} & Felipe Opazo-Mella
+#' @param df: a dataframe obtained after running the \code{\link{FD_df}} function.
+#' @return FDsummary: \code{dataframe}. It contains the estimated parameters for functional diversity for each time bin. \emph{FEve} functional evenness, \emph{FDiv} functional divergence, \emph{FSpe} functional specialisaiton, \emph{FRic} functional richness.
+#' @return FuncSpace: list to the Global Environment. Stores the Functional space for each time bin.
+#' @return ch1_list: list to the Global Environment. Stores convex hull coordinates.Graphical use in \code{\link{FD_plotPC}}
+#' @return ch2_list: list to the Global Environment. Stores convex hull coordinates.Graphical use in \code{\link{FD_plotPC}}
+#' @return pc1_list: list to the Global Environment. Stores principal component coordinates.Graphical use in \code{\link{FD_plotPC}}
+#' @return pc2_list: list to the Global Environment. Stores principal component coordinates.Graphical use in \code{\link{FD_plotPC}}
+#' @return pc3_list: list to the Global Environment. Stores principal component coordinates.Graphical use in \code{\link{FD_plotPC}}
 #' @references
 #'        Villéger, S., Mason, N. W., & Mouillot, D. (2008). New multidimensional functional diversity indices for a multifaceted framework in functional ecology. Ecology, 89(8), 2290-2301.
-
-
+#' @seealso \code{\link{FD_df}}, \code{\link[FD:FD-package]{FD}}
+#' @source This code is an edited version of Villeger: \url{http://villeger.sebastien.free.fr/Rscripts.html}.
+#' @examples FDSummary <- FD_metrics(df=data1)
+#'
+#' View(FDsummary)
+#'
+#'
+#'
 FD_metrics <- function(df){
-  pacman::p_load(reshape2,stringr, foreach, doParallel, rowr)
+  pacman::p_load(reshape2,stringr, rowr)
   "%ni%" =  Negate("%in%")
   times<-as.character(unique(df$time))
   summary2<-data.frame()
@@ -27,7 +32,7 @@ FD_metrics <- function(df){
   pc3_list <- list()
   for (qq in 1:length(times)) {
 
-    print(paste("time: ",times[qq]))
+    #print(paste("time: ",times[qq]))
     weight <- as.data.frame(t(subset(df, time== times[qq], select = "abundance")))
     coord  <- subset(df, time== times[qq], select = 2:(nchar(as.character(df$ecocode[1]))+1))
     nnn    <- subset(df, time== times[qq], select = "ecocode")
@@ -66,7 +71,7 @@ FD_metrics <- function(df){
     con.hull1 <- rbind(df10[con.hull.pos1,],df10[con.hull.pos1[1],])
     con.hull2 <- rbind(df11[con.hull.pos2,],df11[con.hull.pos2[1],])
 
-    FDx= FDind(traits = coord, abundances = weight)
+    FDx= ind_FD(traits = coord, abundances = weight)
     FRic<- FDx$FRic
     FSpe<- FDx$FSpe
     FDiv<- FDx$FDiv
@@ -100,7 +105,7 @@ FD_metrics <- function(df){
     pc3_list[[qq]] <- pc3
     FDsummary <- summary2
   }
-  FDsummary<<-summary2
+  #FDsummary<<-summary2
   FuncSpace <<- FuncSpace
   ch1_list<<- ch1_list
   ch2_list<<- ch2_list
@@ -110,5 +115,5 @@ FD_metrics <- function(df){
 
   return(summary2)
 
-}
+}#ElFin
 

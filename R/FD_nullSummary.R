@@ -1,14 +1,20 @@
-#' Summarise the null communities' functional diversity.
-#' @param
-#'       nullrao: data.frame obtained after computing the function FD_nullcom.
-#'       nullFD: data.frame obtained after computing the function FD_nullcom.
-#'       nNull: numeric. The number of null replicates.
-#'       plot.null: TRUE or FALSE.If TRUE this function passes the argument to the function FD_plotNull.
-#' @return This functions returns two dataframes summarynullrao and summarynullFD sumamrising the functional diversity simulated by the null models. Each dataframe includes the average values (m%), the variance (v%), and the lower and upper confidence intervals (95%).Also, it returns and saves the corresponding plots if plot.null is TRUE.
-
-
-
-
+#' Summarise the null communities' functional diversity
+#' @description This function summarises the dataframes returned by the function \code{\link{FD_nullCom}}. This function can be called directly from \code{\link{FD_nullCom}}.
+#' @author Simon P. Castillo \email{spcastil@@uc.cl} & Felipe Opazo-Mella
+#' @param nullrao: dataframe obtained after computing the function \code{\link{FD_nullCom}}.
+#' @param nullFD: dataframe obtained after computing the function \code{\link{FD_nullCom}}.
+#' @param nNull: numeric. The number of null replicates. This must be the same that those in \code{\link{FD_nullCom}}.
+#' @param plot.null: \code{TRUE} or \code{FALSE}.If \code{TRUE this function passes the argument to the function \code{\link{FD_plotNull}}. Default \code{TRUE}.
+#' @return This functions returns two dataframes \code{summarynullrao} and \code{summarynullFD} summarising the functional diversity simulated by the null models. Each dataframe includes the average values (m), the variance (v), and the lower and upper confidence intervals (\code{95%}).
+#' Also, it returns and saves the corresponding plots if \code{plot.null} is \code{TRUE}.
+#' @examples FD_nullSummary(nullrao = null_rao, nullFD = null_FDmetrics, nNull = 3, plot.null = FALSE)
+#'
+#' @examples View(summarynullrao)
+#'
+#' @examples View(summarynullFD)
+#'
+#'
+#'
 FD_nullSummary <- function(nullrao, nullFD, nNull, plot.null=TRUE){
   pacman::p_load(plyr)
   "%ni%" = Negate("%in%")
@@ -86,17 +92,12 @@ FD_nullSummary <- function(nullrao, nullFD, nNull, plot.null=TRUE){
     summarynullFD<- rbind(summarynullFD,summary2.2 )
   }
 
-
-
-
-
-
   summarynullrao$Time <- unique(as.character(nullrao$Time))
   summarynullFD$Time <- unique(as.character(nullFD$time))
-  summarynullrao <<- summarynullrao
+  summarynullRao <<- summarynullrao
   summarynullFD <<- summarynullFD
 
   if(plot.null==TRUE){
-    FD_plotNull(d.rao = summarynullrao, d.FD = summarynullFD, plotRao = TRUE, saveRao = TRUE, plotFRic = TRUE, saveFRic = TRUE)
+    FD_nullPlot(d.rao = summarynullRao, d.FD = summarynullFD, plotRao = TRUE, saveRao = TRUE, plotFRic = TRUE, saveFRic = TRUE)
     }
-} #end
+} #ElFin
