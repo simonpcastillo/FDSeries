@@ -49,5 +49,5 @@ plotsFS <- FD_plotFS(FDsummary, plot.window=TRUE,save.plot= TRUE,add.labs=FALSE,
 \code{\link{FD_metrics}}, \code{\link[ggplot2]{ggsave}}.
 }
 \author{
-Simon P. Castillo \email{spcastil@uc.cl} & Felipe Opazo-Mella
+Simon P. Castillo \email{spcastil@uc.cl}, Felipe Opazo-Mella, Fabio Labra and Pablo Marquet
 }

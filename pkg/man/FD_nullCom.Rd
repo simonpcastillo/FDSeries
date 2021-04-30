@@ -35,13 +35,13 @@ Finally, if \code{plot.null} is \code{TRUE}, the function \code{\link{FD_plotnul
 This function simmulates random communities from a resampling of the abundances in the empirical data.
 }
 \examples{
-View(data0) # original dataframe, it is not a functional diversity dataframe
+View(data1) # original dataframe, it is not a functional diversity dataframe
 
-FD_nullcom(data0, nNull= 10, type= "all", call.nullsummary = FALSE, plot.null = FALSE)) # Note: in this case it doesn't summarise nor plot the data.
+FD_nullcom(data1, nNull= 10, type= "all", call.nullsummary = FALSE, plot.null = FALSE)) # Note: in this case it doesn't summarise nor plot the data.
 
 
 
 }
 \author{
-Simon P. Castillo \email{spcastil@uc.cl} & Felipe Opazo-Mella
+Simon P. Castillo \email{spcastil@uc.cl}, Felipe Opazo-Mella, Fabio Labra and Pablo Marquet
 }

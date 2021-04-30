@@ -48,5 +48,5 @@ FD_plotNull(d.rao = summarynullRao, d.FD = summarynullFD, plotRao = TRUE, saveRa
 \code{\link[ggplot2:ggplot]{ggplot2}}
 }
 \author{
-Simon P. Castillo \email{spcastil@uc.cl} & Felipe Opazo-Mella
+Simon P. Castillo \email{spcastil@uc.cl}, Felipe Opazo-Mella, Fabio Labra and Pablo Marquet
 }

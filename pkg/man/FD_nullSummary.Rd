@@ -30,5 +30,5 @@ View(summarynullFD)
 
 }
 \author{
-Simon P. Castillo \email{spcastil@uc.cl} & Felipe Opazo-Mella
+Simon P. Castillo \email{spcastil@uc.cl}, Felipe Opazo-Mella, Fabio Labra and Pablo Marquet
 }
