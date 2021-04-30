@@ -1,5 +1,5 @@
 # FDSeries: Computing Functional Diversity over Time in R
-Exploring changes in community structure over time
+Exploring changes in community structure over time.<br>
 
 ## Simon P. Castillo, Felipe Opazo-Mella
 
