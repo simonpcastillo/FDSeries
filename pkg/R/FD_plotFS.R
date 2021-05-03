@@ -42,10 +42,11 @@ FD_plotFS <- function(dfFD, sumFD, sumRao, plot.window=TRUE,cols = viridis, save
     if(add.labs == FALSE){
     p <- ggplot(data=dataPCS, aes(x=PC1, y= PC2)) +
       geom_polygon(data = dataconhull1, aes( x= GPC1, y=GPC2), alpha = 0.6, fill=rgb(.7,.8,.9,0.2)) +  #convex hull
-      geom_point(shape=21, size=ab*100, fill= colPoints, colour="black", alpha=.75) + #points
-      geom_point(data=dataPCS, aes(x=mean(PC1), y=mean(PC2)), shape=3, size=4, colour = rgb(1, 0, 0)) + #Mean point (red + at the middle)
-      scale_colour_manual("black") +
-      labs( x=paste("PC1 ",pc1*100, "%", sep =""), y=paste("PC2 ",pc2*100, "%", sep =""),
+      geom_point(aes(colour=labels),shape=16, size=(ab), alpha=.75) + #points
+      geom_point(data=dataPCS, aes(x=mean(PC1), y=mean(PC2),), shape=3, size=4, colour = rgb(1, 0, 0)) + #Mean point (red + at the middle)
+      scale_colour_manual(values = colPoints )+
+      #scale_colour_manual("black") +
+      labs( x=paste("PC1 ",pc1*100, "%", sep =""), y=paste("PC2 ",pc2*100, "%", sep =""), colour='Ecocode',
             title= paste(paste0("FRic=", round(as.numeric(as.character(sumFD$FRic[i])), 2)),paste0("FRed=", round(as.numeric(as.character(sumRao$FunRedundancy[i])),2)), sep= " ")) +
       theme_bw() +
       theme(axis.title.x=element_text(size=15), axis.title.y = element_text(size=15),panel.grid.major = element_blank(),
@@ -53,7 +54,7 @@ FD_plotFS <- function(dfFD, sumFD, sumRao, plot.window=TRUE,cols = viridis, save
 
     q <- ggplot(data=dataPCS, aes(x=PC1, y= PC3)) +
       geom_polygon(data = dataconhull2, aes( x= GPC1, y=GPC3), alpha = 0.6, fill=rgb(.7,.8,.9,0.2)) +  #convex hull
-      geom_point(shape=21, size=ab*100, fill= colPoints, colour="black", alpha=.75) + #points
+      geom_point(shape=21, size=ab, fill= colPoints, colour="black", alpha=.75) + #points
       geom_point(data=dataPCS, aes(x=mean(PC1), y=mean(PC3)), shape=3, size=4, colour = rgb(1, 0, 0)) + #Mean point (red + at the middle)
       scale_colour_manual("black") +
       labs( x=paste("PC1 ",pc1*100, "%", sep =""), y=paste("PC3 ",pc3*100, "%", sep =""),
@@ -68,7 +69,7 @@ FD_plotFS <- function(dfFD, sumFD, sumRao, plot.window=TRUE,cols = viridis, save
     if(add.labs == TRUE){
           p <- ggplot(data=NULL) +
             geom_polygon(data = dataconhull1, aes( x= GPC1, y=GPC2), alpha = 0.6, fill=rgb(.7,.8,.9,0.2)) +  #convex hull
-            geom_point(data=dataPCS,aes(x=PC1, y= PC2),shape=21, size=ab*100, fill= colPoints, colour="black", alpha=.75) +
+            geom_point(data=dataPCS,aes(x=PC1, y= PC2),shape=21, size=ab, fill= colPoints, colour="black", alpha=.75) +
             geom_point(data=dataPCS, aes(x=mean(PC1), y=mean(PC2)), shape=3, size=4, colour = rgb(1, 0, 0)) + #Mean point (red + at the middle)
             scale_colour_manual("black") +
             geom_text_repel(data=dataPCS, aes(x=PC1, y= PC2,label = labels), size = 4, col = "black", nudge_y = -0.3, nudge_x = -.1, segment.colour = "black") + #points
@@ -80,7 +81,7 @@ FD_plotFS <- function(dfFD, sumFD, sumRao, plot.window=TRUE,cols = viridis, save
 
           q <- ggplot(data=NULL) +
             geom_polygon(data = dataconhull2, aes( x= GPC1, y=GPC3), alpha = 0.6, fill=rgb(.7,.8,.9,0.2)) +  #convex hull
-            geom_point(data=dataPCS,aes(x=PC1, y= PC3),shape=21, size=ab*100, fill= colPoints, colour="black", alpha=.75) + #point
+            geom_point(data=dataPCS,aes(x=PC1, y= PC3),shape=21, size=ab, fill= colPoints, colour="black", alpha=.75) + #point
             geom_text_repel(data=dataPCS, aes(x=PC1, y= PC3,label = labels), size = 4, col = "black", nudge_y = -0.3, nudge_x = -.1, segment.colour = "black")+
             geom_point(data=dataPCS, aes(x=mean(PC1), y=mean(PC3)), shape=3, size=4, colour = rgb(1, 0, 0)) + #Mean point (red + at the middle)
             scale_colour_manual("black") +

@@ -1,6 +1,4 @@
 # FDSeries: Computing Functional Diversity over Time in R
-Exploring changes in community structure over time.<br>
-
 ## Simon P. Castillo, Felipe Opazo-Mella
 
 This repository contains the R code relevant to the work of Felipe Opazo-Mella and collagues. 

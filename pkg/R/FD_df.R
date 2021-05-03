@@ -19,11 +19,11 @@ FD_df <- function(df, subcat){
   if(length(subcat) != nchar(colnames(df)[1]))stop("Length of subcat must be equal that the number of traits for the life-modes.")
   if(class(df) != 'data.frame') stop('df must be a dataframe')
   timeSums <- colSums(df)
-  for (i in 1:nrow(df)) {
-    for(j in 1:ncol(df)){
-      df[i,j] <- df[i,j]/timeSums[j]
-    }
-  }
+ # for (i in 1:nrow(df)) {
+#    for(j in 1:ncol(df)){
+#      df[i,j] <- df[i,j]/timeSums[j]
+#    }
+#  }
   data1<-melt(df, id.vars = NULL)
   data1<-cbind(rep(rownames(df, ncol(df))),data1)
   names(data1) = c("time", "ecocode", "abundance")
