@@ -15,35 +15,37 @@
 #'
 #'
 FD_df <- function(df, subcat){
-pacman::p_load(reshape2,stringr)
-  if(length(subcat) != nchar(names(df)[1]))stop("Length of subcat must be equal that the number of traits for the life-modes.")
-timeSums <- colSums(df)
-for (i in 1:nrow(df)) {
-  for(j in 1:ncol(df)){
-    df[i,j] <- df[i,j]/timeSums[j]
+  pacman::p_load(reshape2,stringr)
+  if(length(subcat) != nchar(colnames(df)[1]))stop("Length of subcat must be equal that the number of traits for the life-modes.")
+  if(class(df) != 'data.frame') stop('df must be a dataframe')
+  timeSums <- colSums(df)
+  for (i in 1:nrow(df)) {
+    for(j in 1:ncol(df)){
+      df[i,j] <- df[i,j]/timeSums[j]
+    }
   }
-}
-data1<-melt(df, id.vars = NULL)
-data1<-cbind(rep(rownames(df, ncol(df))),data1)
-ntraits = nchar(as.character(data1$variable[1]))
-names(data1) = c("time", "ecocode", "abundance")
-data1<- cbind(data1$ecocode,
-              as.data.frame(str_split_fixed(data1$ecocode, n=ntraits, pattern = "")),
-              data1$time,
-              data1$abundance)
-names(data1) <- c("ecocode",letters[1:ntraits],"time", "abundance")
-traits<-as.data.frame(matrix(0, ncol = sum(subcat), nrow = nrow(data1)))
-colnames(traits)<-paste0(rep(letters[1:ntraits], subcat),sequence(subcat))
-data1<-cbind(No=array(NA, nrow(data1)),data1,traits)
-data1 <- data1[,-1]
+  data1<-melt(df, id.vars = NULL)
+  data1<-cbind(rep(rownames(df, ncol(df))),data1)
+  names(data1) = c("time", "ecocode", "abundance")
+  ntraits = nchar(as.character(data1$ecocode[1]))
 
-for (j in 1:nrow(data1)) {
-  for(k in 2:(ntraits+1)){
-    b <- as.numeric(data1[j,k])
-    st <- sum(subcat[1:(k-1)]) - subcat[(k-1)]
-    data1[j,(b + st +ntraits + 3)]<-1
+  data1<- cbind(data1$ecocode,
+                as.data.frame(str_split_fixed(data1$ecocode, n=ntraits, pattern = '')),
+                data1$time,
+                data1$abundance)
+  names(data1) <- c("ecocode",letters[1:ntraits],"time", "abundance")
+  traits<-as.data.frame(matrix(0, ncol = sum(subcat), nrow = nrow(data1)))
+  colnames(traits)<-paste0(rep(letters[1:ntraits], subcat),sequence(subcat))
+  data1<-cbind(No=array(NA, nrow(data1)),data1,traits)
+  data1 <- data1[,-1]
+
+  for (j in 1:nrow(data1)) {
+    for(k in 2:(ntraits+1)){
+      b <- as.numeric(data1[j,k])
+      st <- sum(subcat[1:(k-1)]) - subcat[(k-1)]
+      data1[j,(b + st +ntraits + 3)]<-1
+    }
   }
-}
-#data1<<- data1
-return(data1)
+  #data1<<- data1
+  return(data1)
 }#ElFin
